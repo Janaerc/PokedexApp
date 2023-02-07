@@ -11,11 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PokedexApp"
         tools:targetApi="31">
-        <activity
-            android:name=".teste1"
-            android:exported="false"
-            android:label="@string/title_activity_teste1"
-            android:theme="@style/Theme.PokedexApp.NoActionBar" />
+
         <activity
             android:name=".PesquisarHabilidade"
             android:exported="false" />
