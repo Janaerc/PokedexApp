@@ -3,6 +3,11 @@ package com.example.pokedexapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+
+import com.example.pokedexapp.backend.RequestTask;
+import com.example.pokedexapp.data.model.Login;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -11,4 +16,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
+
+    public void convert (View view) {
+        EditText usuario = findViewById(R.id.editTextUsuario);
+        EditText senha = findViewById(R.id.editTextSenha);
+
+        String usuarioaux = usuario.getText().toString();
+        String senhaaux = senha.getText().toString();
+        Boolean auth = false;
+
+
+        Login login = new Login(usuarioaux, senhaaux);
+        RequestTask task = new RequestTask(auth);
+        task.execute(login);
+    }
+
 }
