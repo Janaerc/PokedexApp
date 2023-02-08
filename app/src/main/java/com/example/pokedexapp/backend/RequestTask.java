@@ -21,9 +21,7 @@ public class RequestTask extends AsyncTask<Login, Void, Boolean> {
     private final Boolean auth;
     private Boolean achou;
     private Context context;
-    private static final String SHARED_PREFERENCES_NAME = "user_session";
-    private static final String SESSION_KEY = "is_logged_in";
-    private int id;
+     private int id;
 
     public RequestTask(Boolean auth, Context context){
         this.context = context;
@@ -43,9 +41,11 @@ public class RequestTask extends AsyncTask<Login, Void, Boolean> {
             editor.putInt("id",id);
             editor.apply();
 
-
             Intent it = new Intent(context, DashboardActivity.class);
             context.startActivity(it);
+
+
+
         }else{
             Toast.makeText(context, "Login inválido", Toast.LENGTH_SHORT).show();
 
@@ -61,6 +61,7 @@ public class RequestTask extends AsyncTask<Login, Void, Boolean> {
     protected Boolean doInBackground(Login... logins){
         achou = false;
 
+
         try{
             Socket socket = new Socket(IP, port);
             DataInputStream input = new DataInputStream(socket.getInputStream());
@@ -70,9 +71,11 @@ public class RequestTask extends AsyncTask<Login, Void, Boolean> {
             output.writeUTF(login.getSenha());
             output.flush();
             achou = input.readBoolean();
+            id = input.readInt(); //add mas naos ei se use
             output.close();
             input.close();
             socket.close();
+
 
         } catch (IOException e){
             e.printStackTrace();
