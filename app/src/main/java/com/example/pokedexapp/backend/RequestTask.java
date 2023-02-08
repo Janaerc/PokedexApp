@@ -27,18 +27,23 @@ public class RequestTask extends AsyncTask<Login, Void, Boolean> {
         this.auth = auth;
     }
 
+    private static final String SHARED_PREFERENCES_NAME = "user_session";
+    private static final String SESSION_KEY = "is_logged_in";
     @Override
     protected void onPostExecute(Boolean auth){
         super.onPostExecute(auth);
         if(auth){
+            SharedPreferences sharedPref = context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putBoolean(SESSION_KEY, true);
+            //editor.putInt("login_id", idDoLogin);
+            editor.apply();
             Intent it = new Intent(context, DashboardActivity.class);
             context.startActivity(it);
         }else{
             Toast.makeText(context, "Login inválido", Toast.LENGTH_SHORT).show();
         }
-        
     }
-
 
 
 
