@@ -2,6 +2,7 @@ package com.example.pokedexapp.backend;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
@@ -37,6 +38,15 @@ public class RequestTask extends AsyncTask<Login, Void, Boolean> {
         }
         
     }
+
+
+
+
+
+
+
+
+
 
     @Override
     protected Boolean doInBackground(Login... logins){
