@@ -31,6 +31,8 @@ public class RequestTask extends AsyncTask<Login, Void, Boolean> {
     }
 
 
+    private static final String SHARED_PREFERENCES_NAME = "user_session";
+    private static final String SESSION_KEY = "is_logged_in";
     @Override
     protected void onPostExecute(Boolean auth){
         super.onPostExecute(auth);
@@ -41,6 +43,7 @@ public class RequestTask extends AsyncTask<Login, Void, Boolean> {
             editor.putInt("id",id);
             editor.apply();
 
+
             Intent it = new Intent(context, DashboardActivity.class);
             context.startActivity(it);
         }else{
@@ -49,6 +52,9 @@ public class RequestTask extends AsyncTask<Login, Void, Boolean> {
         }
 
     }
+
+
+
 
 
     @Override

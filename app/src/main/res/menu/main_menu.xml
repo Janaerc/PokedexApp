@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/CadastroPokemon"
+        android:title="Cadastrar Pokemon"/>
+    <item
+        android:id="@+id/ListarTodos"
+        android:title="Listar Todos"/>
+    <item
+        android:id="@+id/PesquisarTipo"
+        android:title="Pesquisar por Tipo"/>
+    <item
+        android:id="@+id/PesquisarHabilidade"
+        android:title="Pesquisar por Habilidade"/>
+    <item
+        android:id="@+id/Sair"
+        android:title="Sair"/>
+
+</menu>
