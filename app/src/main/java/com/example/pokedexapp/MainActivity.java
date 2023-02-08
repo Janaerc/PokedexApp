@@ -2,9 +2,11 @@ package com.example.pokedexapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.pokedexapp.backend.RequestTask;
 import com.example.pokedexapp.data.model.Login;
@@ -26,9 +28,11 @@ public class MainActivity extends AppCompatActivity {
         Boolean auth = false;
 
 
+
         Login login = new Login(usuarioaux, senhaaux);
-        RequestTask task = new RequestTask(auth);
+        RequestTask task = new RequestTask(true, this);
         task.execute(login);
+
     }
 
 }
