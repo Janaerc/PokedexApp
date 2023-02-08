@@ -23,9 +23,6 @@ public class DashboardActivity extends AppCompatActivity {
             startActivity(loginIntent);
             finish();
         }
-
-
-
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
