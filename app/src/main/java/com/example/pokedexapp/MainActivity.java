@@ -25,12 +25,12 @@ public class MainActivity extends AppCompatActivity {
 
         String usuarioaux = usuario.getText().toString();
         String senhaaux = senha.getText().toString();
-        Boolean auth = false;
+        int auth = 0;
 
 
 
         Login login = new Login(usuarioaux, senhaaux);
-        RequestTask task = new RequestTask(true, this);
+        RequestTask task = new RequestTask(0, this);
         task.execute(login);
 
     }

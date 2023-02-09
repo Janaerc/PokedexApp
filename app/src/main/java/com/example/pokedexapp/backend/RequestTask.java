@@ -13,53 +13,51 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import com.example.pokedexapp.data.model.Login;
 
-public class RequestTask extends AsyncTask<Login, Void, Boolean> {
+public class RequestTask extends AsyncTask<Login, Void, Integer> {
     private static final String IP = "10.0.2.2";
     private static final int port = 12345;
-    private final Boolean auth;
-    private Boolean achou;
+    private final int auth;
+    private int achou;
     private Context context;
-    private static final String SHARED_PREFERENCES_NAME = "user_session";
-    private static final String SESSION_KEY = "is_logged_in";
     private int id;
 
-    public RequestTask(Boolean auth, Context context){
+    public RequestTask(int auth, Context context){
         this.context = context;
         this.auth = auth;
     }
 
 
-    private static final String SHARED_PREFERENCES_NAME = "user_session";
+    public static final String SHARED_PREFERENCES_NAME = "user_session";
     private static final String SESSION_KEY = "is_logged_in";
+
+
     @Override
-    protected void onPostExecute(Boolean auth){
+    protected void onPostExecute(Integer auth){
         super.onPostExecute(auth);
-        if(auth){
+        if(auth != 0){
             SharedPreferences sharedPref = context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putBoolean(SESSION_KEY, true);
             editor.putInt("id",id);
             editor.apply();
-
-
+            System.out.println("entrou no if");
+            System.out.println(auth);
             Intent it = new Intent(context, DashboardActivity.class);
             context.startActivity(it);
+
         }else{
             Toast.makeText(context, "Login inválido", Toast.LENGTH_SHORT).show();
-
+            System.out.println(auth);
+            System.out.println("entrou no else");
         }
 
     }
 
 
 
-
-
     @Override
-    protected Boolean doInBackground(Login... logins){
-        achou = false;
+    protected Integer doInBackground(Login... logins){
 
         try{
             Socket socket = new Socket(IP, port);
@@ -69,17 +67,18 @@ public class RequestTask extends AsyncTask<Login, Void, Boolean> {
             output.writeUTF(login.getUsuario());
             output.writeUTF(login.getSenha());
             output.flush();
-            achou = input.readBoolean();
+            id = input.readInt();
             output.close();
             input.close();
             socket.close();
 
+            return id;
+
         } catch (IOException e){
             e.printStackTrace();
         }
-        return achou;
+        return id;
     }
-
 
 
 
