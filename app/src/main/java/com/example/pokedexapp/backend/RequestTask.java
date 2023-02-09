@@ -18,7 +18,6 @@ public class RequestTask extends AsyncTask<Login, Void, Integer> {
     private static final String IP = "10.0.2.2";
     private static final int port = 12345;
     private final int auth;
-    private int achou;
     private Context context;
     private int id;
 
@@ -74,7 +73,6 @@ public class RequestTask extends AsyncTask<Login, Void, Integer> {
             output.close();
             input.close();
             socket.close();
-            return achou;
 
 
             return id;
