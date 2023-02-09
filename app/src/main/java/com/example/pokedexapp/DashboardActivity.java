@@ -12,6 +12,9 @@ import android.view.MenuItem;
 
 public class DashboardActivity extends AppCompatActivity {
 
+
+    String id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,9 +23,21 @@ public class DashboardActivity extends AppCompatActivity {
         boolean isLoggedIn = sharedPref.getBoolean("is_logged_in", false);
         if (!isLoggedIn) {
             Intent loginIntent = new Intent(this, MainActivity.class);
+
+
             startActivity(loginIntent);
             finish();
         }
+        Intent it = getIntent();
+        id = it.getStringExtra("id");
+
+        System.out.println(id);
+        System.out.println("CHEGOU AQUI NO ONCREATE");
+
+
+
+
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -38,7 +53,9 @@ public class DashboardActivity extends AppCompatActivity {
 
             case R.id.CadastroPokemon:
                 Intent it = new Intent( this, CadastroPokemon.class);
+                it.putExtra("id", id);
                 startActivity(it);
+
                 return true;
 
             case R.id.ListarTodos:

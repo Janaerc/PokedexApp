@@ -38,7 +38,7 @@ public class CadastroPokemon extends AppCompatActivity {
 
 
 
-        //int userId = sharedPref.getInt("id", 0);
+
 
         String aux = getIntent().getStringExtra("id");
         System.out.println("AQUI É o FRONT CADASTRO");
