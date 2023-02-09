@@ -59,8 +59,8 @@ public class PesquisarTipo extends AppCompatActivity {
                 return true;
 
             case R.id.Sair:
-                // it = new Intent( this, .class);
-                //startActivity(it);
+                Logout logout = new Logout(this);
+                logout.logout();
                 return true;
 
 
