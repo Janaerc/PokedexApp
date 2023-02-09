@@ -13,7 +13,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import com.example.pokedexapp.data.model.Login;
 
 public class RequestTask extends AsyncTask<Login, Void, Integer> {
     private static final String IP = "10.0.2.2";
@@ -21,7 +20,8 @@ public class RequestTask extends AsyncTask<Login, Void, Integer> {
     private final int auth;
     private int achou;
     private Context context;
-     private int id;
+    private int id;
+
 
     public RequestTask(int auth, Context context){
         this.context = context;
@@ -29,8 +29,10 @@ public class RequestTask extends AsyncTask<Login, Void, Integer> {
     }
 
 
-    private static final String SHARED_PREFERENCES_NAME = "user_session";
+    public static final String SHARED_PREFERENCES_NAME = "user_session";
     private static final String SESSION_KEY = "is_logged_in";
+
+
     @Override
     protected void onPostExecute(Integer auth){
         super.onPostExecute(auth);
@@ -47,9 +49,6 @@ public class RequestTask extends AsyncTask<Login, Void, Integer> {
             context.startActivity(it);
 
 
-
-
-
         }else{
             Toast.makeText(context, "Login inválido", Toast.LENGTH_SHORT).show();
             System.out.println(auth);
@@ -60,12 +59,8 @@ public class RequestTask extends AsyncTask<Login, Void, Integer> {
 
 
 
-
-
     @Override
     protected Integer doInBackground(Login... logins){
-        int achou = 0;
-
 
         try{
             Socket socket = new Socket(IP, port);
@@ -75,20 +70,20 @@ public class RequestTask extends AsyncTask<Login, Void, Integer> {
             output.writeUTF(login.getUsuario());
             output.writeUTF(login.getSenha());
             output.flush();
-            achou = input.readInt();
-            id = input.readInt(); //add mas naos ei se use
+            id = input.readInt();
             output.close();
             input.close();
             socket.close();
             return achou;
 
 
+            return id;
+
         } catch (IOException e){
             e.printStackTrace();
         }
-        return achou;
+        return id;
     }
-
 
 
 

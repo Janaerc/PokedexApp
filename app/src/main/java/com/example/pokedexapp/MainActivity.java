@@ -30,9 +30,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         Login login = new Login(usuarioaux, senhaaux);
+        RequestTask task = new RequestTask(0, this);
 
-
-        RequestTask task = new RequestTask(auth, this);
         task.execute(login);
 
 
