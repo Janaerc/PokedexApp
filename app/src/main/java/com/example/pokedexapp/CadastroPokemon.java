@@ -7,10 +7,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class CadastroPokemon extends AppCompatActivity {
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +32,18 @@ public class CadastroPokemon extends AppCompatActivity {
         startActivity(loginIntent);
         finish();
         }
+
+
+        TextView idUsuario = findViewById(R.id.idUsuario);
+
+
+
+
+
+        String aux = getIntent().getStringExtra("id");
+        System.out.println("AQUI É o FRONT CADASTRO");
+        System.out.println(aux);
+        idUsuario.setText(aux);
 
 
 

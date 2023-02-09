@@ -22,6 +22,7 @@ public class RequestTask extends AsyncTask<Login, Void, Integer> {
     private Context context;
     private int id;
 
+
     public RequestTask(int auth, Context context){
         this.context = context;
         this.auth = auth;
@@ -44,7 +45,9 @@ public class RequestTask extends AsyncTask<Login, Void, Integer> {
             System.out.println("entrou no if");
             System.out.println(auth);
             Intent it = new Intent(context, DashboardActivity.class);
+            it.putExtra("id", auth);
             context.startActivity(it);
+
 
         }else{
             Toast.makeText(context, "Login inválido", Toast.LENGTH_SHORT).show();
@@ -71,6 +74,8 @@ public class RequestTask extends AsyncTask<Login, Void, Integer> {
             output.close();
             input.close();
             socket.close();
+            return achou;
+
 
             return id;
 
