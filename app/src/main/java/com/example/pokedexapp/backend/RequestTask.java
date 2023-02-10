@@ -7,14 +7,14 @@ import android.os.AsyncTask;
 import android.widget.Toast;
 
 import com.example.pokedexapp.DashboardActivity;
-import com.example.pokedexapp.data.model.Login;
+import com.example.pokedexapp.data.model.Usuario;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-public class RequestTask extends AsyncTask<Login, Void, Integer> {
+public class RequestTask extends AsyncTask<Usuario, Void, Integer> {
     private static final String IP = "10.0.2.2";
     private static final int port = 12345;
     private final int auth;
@@ -59,13 +59,13 @@ public class RequestTask extends AsyncTask<Login, Void, Integer> {
 
 
     @Override
-    protected Integer doInBackground(Login... logins){
+    protected Integer doInBackground(Usuario... logins){
 
         try{
             Socket socket = new Socket(IP, port);
             DataInputStream input = new DataInputStream(socket.getInputStream());
             DataOutputStream output = new DataOutputStream(socket.getOutputStream());
-            Login login = logins[0];
+            Usuario login = logins[0];
             output.writeUTF(login.getUsuario());
             output.writeUTF(login.getSenha());
             output.flush();
