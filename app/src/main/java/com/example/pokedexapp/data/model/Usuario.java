@@ -2,17 +2,26 @@ package com.example.pokedexapp.data.model;
 
 import java.io.Serializable;
 
-public class Login implements Serializable {
+public class Usuario implements Serializable {
+    private  int id;
     private String usuario;
     private String senha;
 
-    public Login(String usuario, String senha) {
+    public Usuario() { super();
+    }
+
+    public Usuario(int id, String usuario, String senha) {
+        this.id = id;
         this.usuario = usuario;
         this.senha = senha;
     }
 
-    public Login() {
-        super();
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUsuario() {
@@ -31,3 +40,5 @@ public class Login implements Serializable {
         this.senha = senha;
     }
 }
+
+

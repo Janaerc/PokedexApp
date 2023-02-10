@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 public class DashboardActivity extends AppCompatActivity {
 
+    private final static int LOGIN = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
