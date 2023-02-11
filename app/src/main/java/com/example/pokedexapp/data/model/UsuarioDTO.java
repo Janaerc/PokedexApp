@@ -2,17 +2,17 @@ package com.example.pokedexapp.data.model;
 
 import java.io.Serializable;
 
-public class Usuario implements Serializable {
+public class UsuarioDTO implements Serializable {
     private  int id;
-    private String usuario;
+    private String nome;
     private String senha;
 
-    public Usuario() { super();
+    public UsuarioDTO() { super();
     }
 
-    public Usuario(int id, String usuario, String senha) {
+    public UsuarioDTO(int id, String nome, String senha) {
         this.id = id;
-        this.usuario = usuario;
+        this.nome = nome;
         this.senha = senha;
     }
 
@@ -24,12 +24,12 @@ public class Usuario implements Serializable {
         this.id = id;
     }
 
-    public String getUsuario() {
-        return usuario;
+    public String getNome() {
+        return nome;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getSenha() {

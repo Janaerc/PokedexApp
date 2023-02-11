@@ -36,10 +36,6 @@ public class CadastroPokemon extends AppCompatActivity {
 
         TextView idUsuario = findViewById(R.id.idUsuario);
 
-
-
-
-
         String aux = getIntent().getStringExtra("id");
         System.out.println("AQUI É o FRONT CADASTRO");
         System.out.println(aux);

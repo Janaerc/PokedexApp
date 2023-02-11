@@ -8,10 +8,11 @@ public class RetrofitConfig {
 
     public RetrofitConfig(){
         this.retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.0.11:8080/")
+                .baseUrl("http://localhost:8080/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
+
     public PokedexService getPokedexService(){
         return this.retrofit.create(PokedexService.class);
     }
