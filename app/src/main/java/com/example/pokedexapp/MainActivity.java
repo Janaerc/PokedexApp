@@ -5,58 +5,60 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.pokedexapp.backend.RequestTask;
 import com.example.pokedexapp.backend.RetrofitConfig;
-import com.example.pokedexapp.data.model.Login;
-import com.example.pokedexapp.data.model.Usuario;
-import com.example.pokedexapp.R;
+import com.example.pokedexapp.data.model.LoginDTO;
+import com.example.pokedexapp.data.model.UsuarioDTO;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
+    UsuarioDTO usuarioDTO;
+    EditText usuario, senha;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        usuario = findViewById(R.id.editTextUsuario);
+        senha = findViewById(R.id.editTextSenha);
     }
 
     public void convert (View view) {
-        EditText usuario = findViewById(R.id.editTextUsuario);
-        EditText senha = findViewById(R.id.editTextSenha);
-        Login login = new Login();
-        login.setUsuario(usuario.getText().toString());
+
+        LoginDTO login = new LoginDTO();
+        login.setLogin(usuario.getText().toString());
         login.setSenha(senha.getText().toString());
 
-        Call<Usuario> call = new RetrofitConfig().getPokedexService().login(login);
-        call.enqueue(new Callback<Usuario>() {
+        Call<UsuarioDTO> call1 = new RetrofitConfig().getPokedexService().login(login);
+
+        call1.enqueue(new Callback<UsuarioDTO>() {
             @Override
-            public void onResponse(retrofit2.Call<Usuario> call, Response<Usuario> response) {
+            public void onResponse(Call<UsuarioDTO> call, Response<UsuarioDTO> response) {
                 if (response.isSuccessful()) {
-                    Usuario usuario = response.body();
+                    usuarioDTO = response.body();
 
                     Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
-                    intent.putExtra("usuario", usuario);
+                    intent.putExtra("usuario", usuarioDTO);
                     startActivity(intent);
 
                     finish();
-                } else if (response.code() == 401)
+                } else
+                if (response.code() == 401)
                     Toast.makeText(MainActivity.this, "Login ou Senha incorretos", Toast.LENGTH_SHORT).show();
                 else
                     Toast.makeText(MainActivity.this, "Erro de login", Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onFailure(retrofit2.Call<Usuario> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Erro na API", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<UsuarioDTO> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "Erro de API", Toast.LENGTH_SHORT).show();
             }
-
         });
     }
 }

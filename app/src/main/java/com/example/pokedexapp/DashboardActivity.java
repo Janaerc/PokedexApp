@@ -1,6 +1,6 @@
 package com.example.pokedexapp;
 
-import static com.example.pokedexapp.backend.RequestTask.SHARED_PREFERENCES_NAME;
+//import static com.example.pokedexapp.backend.RequestTask.SHARED_PREFERENCES_NAME;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +21,7 @@ public class DashboardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+        /*SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
         boolean isLoggedIn = sharedPref.getBoolean("is_logged_in", false);
         int id = sharedPref.getInt("id", -1);
         System.out.println("esse é o valor que ta passando de id:" + id);
@@ -31,7 +31,7 @@ public class DashboardActivity extends AppCompatActivity {
             Toast.makeText(this, "Login inválido", Toast.LENGTH_SHORT).show();
             startActivity(loginIntent);
             finish();
-        }
+        }*/
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

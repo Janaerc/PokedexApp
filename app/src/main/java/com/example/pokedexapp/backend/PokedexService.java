@@ -3,8 +3,8 @@ package com.example.pokedexapp.backend;
 
 
 
-import com.example.pokedexapp.data.model.Login;
-import com.example.pokedexapp.data.model.Usuario;
+import com.example.pokedexapp.data.model.LoginDTO;
+import com.example.pokedexapp.data.model.UsuarioDTO;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -12,7 +12,7 @@ import retrofit2.http.POST;
 public interface PokedexService {
 
     @POST("login")
-    Call<Usuario> login(@Body Login login);
+    Call<UsuarioDTO> login(@Body LoginDTO login);
 
     /*
     @GET("mutantes")
