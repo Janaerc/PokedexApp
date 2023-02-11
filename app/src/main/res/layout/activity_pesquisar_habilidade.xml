@@ -4,55 +4,82 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PesquisarHabilidade">
+    tools:context=".PesquisarHabilidade"
+    android:background="#222224">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="15sp"
+        android:background="#222224"
         android:orientation="vertical">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/POKEDEXPesquisar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_weight="0"
+            android:text="POKEDEX"
+            android:textAlignment="center"
+            android:textColor="#F00000"
+            android:textSize="60sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textView16"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Pesquisar Habilidade" />
-        </LinearLayout>
-
-        <LinearLayout
+        <ImageView
+            android:id="@+id/imageView5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_weight="0"
+            app:srcCompat="@drawable/ic_launcher_foreground" />
 
-            <EditText
-                android:id="@+id/editTextTextPersonName8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Pesquisar" />
+        <TextView
+            android:id="@+id/txtPesquisar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="Pesquise o Pokemon"
+            android:textColor="#F0F0F0" />
 
-            <Button
-                android:id="@+id/button3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Buscar" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/Pesquisar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Pesquisar Habilidade"
 
-        <LinearLayout
+            android:textAlignment="viewEnd"
+            android:textColor="#F0F0F0"
+            android:textSize="25sp" />
+
+        <EditText
+            android:id="@+id/editTxtPesquisar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30sp"
+            android:backgroundTint="#EE1515"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Digite aqui"
+            android:textColor="#F00000" />
+
+        <Button
+            android:id="@+id/BtnPesquisar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
+            android:layout_marginBottom="20sp"
+            android:backgroundTint="#F00000"
+            android:text="Pesquisar"
+            android:textColor="#F0F0F0"
+            android:textSize="25sp"
+            app:iconTint="#F00000" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/RecyclerViewPokemons"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
+            android:layout_margin="10sp"
+            android:textColor="#F0F0F0" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
