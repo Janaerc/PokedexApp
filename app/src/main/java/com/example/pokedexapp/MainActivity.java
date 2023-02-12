@@ -1,17 +1,14 @@
 package com.example.pokedexapp;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.example.pokedexapp.backend.RetrofitConfig;
 import com.example.pokedexapp.data.model.LoginDTO;
 import com.example.pokedexapp.data.model.UsuarioDTO;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -34,12 +31,13 @@ public class MainActivity extends AppCompatActivity {
         LoginDTO login = new LoginDTO();
         login.setLogin(usuario.getText().toString());
         login.setSenha(senha.getText().toString());
+        System.out.println(login.getLogin());
 
         Call<UsuarioDTO> call1 = new RetrofitConfig().getPokedexService().login(login);
 
         call1.enqueue(new Callback<UsuarioDTO>() {
             @Override
-            public void onResponse(Call<UsuarioDTO> call, Response<UsuarioDTO> response) {
+            public void onResponse(Call<UsuarioDTO> call1, Response<UsuarioDTO> response) {
                 if (response.isSuccessful()) {
                     usuarioDTO = response.body();
 
@@ -58,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<UsuarioDTO> call, Throwable t) {
                 Toast.makeText(MainActivity.this, "Erro de API", Toast.LENGTH_SHORT).show();
+            System.out.println(t.getMessage());
             }
         });
     }

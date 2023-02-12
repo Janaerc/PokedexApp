@@ -1,5 +1,6 @@
 package com.example.pokedexapp.backend;
 
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -8,13 +9,15 @@ public class RetrofitConfig {
 
     public RetrofitConfig(){
         this.retrofit = new Retrofit.Builder()
-                .baseUrl("http://localhost:8080/")
+                .baseUrl("http://127.0.0.1:8080/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-    }
+           }
 
     public PokedexService getPokedexService(){
+
         return this.retrofit.create(PokedexService.class);
     }
+
 }
 

@@ -7,7 +7,9 @@ import com.example.pokedexapp.data.model.LoginDTO;
 import com.example.pokedexapp.data.model.UsuarioDTO;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface PokedexService {
 
@@ -38,8 +40,8 @@ public interface PokedexService {
 
     @DELETE("mutantes/{id}")
     Call<MutanteDTO> deleteMutante(@Path("id") Long id);
-
+ */
     @GET("usuarios/{id}")
     Call<UsuarioDTO> getUsuario(@Path("id") Long id);
-     */
+
 }
