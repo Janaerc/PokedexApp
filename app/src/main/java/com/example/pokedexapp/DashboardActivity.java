@@ -13,6 +13,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.pokedexapp.backend.RetrofitConfig;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class DashboardActivity extends AppCompatActivity {
 
     private final static int LOGIN = 1;
@@ -33,6 +39,25 @@ public class DashboardActivity extends AppCompatActivity {
             finish();
         }*/
     }
+    @Override
+    protected void onStart(){
+        super.onStart();
+        getPokemonCount();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getPokemonCount();
+
+    }
+
+    private void getPokemonCount(){
+      //  Call<Integer> call1 = new RetrofitConfig().getPokemonService().getCount();
+
+    }
+
+
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
