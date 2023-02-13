@@ -22,10 +22,10 @@ public interface PokedexService {
 
     @GET("mutantes/{id}")
     Call<MutanteDTO> getMutanteById(@Path("id") Long id);
-
+    */
     @GET("mutantes/count")
     Call<Integer> getCount();
-
+/*
     @GET("habilidades/top")
     Call<List<String>> getTopHabilities();
 

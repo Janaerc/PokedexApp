@@ -11,7 +11,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.util.Log;
 
 import com.example.pokedexapp.backend.RetrofitConfig;
 
@@ -23,10 +25,13 @@ public class DashboardActivity extends AppCompatActivity {
 
     private final static int LOGIN = 1;
 
+    TextView textViewTotalPokemon;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
+        textViewTotalPokemon = findViewById(R.id.textView5);
         /*SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
         boolean isLoggedIn = sharedPref.getBoolean("is_logged_in", false);
         int id = sharedPref.getInt("id", -1);
@@ -53,8 +58,27 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void getPokemonCount(){
-      //  Call<Integer> call1 = new RetrofitConfig().getPokemonService().getCount();
+        Call<Integer> call1 = new RetrofitConfig().getPokedexService().getCount();
 
+        call1.enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                if(response.isSuccessful()) {
+                    //log.i("INFO", "sucesso");
+                    Integer qtd = response.body();
+                    System.out.println(qtd);
+                    textViewTotalPokemon.setText(String.format("%d", qtd));
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
+                Toast.makeText(DashboardActivity.this, "Erro de API", Toast.LENGTH_SHORT).show();
+                System.out.println(t.getMessage());
+            }
+        });
     }
 
 

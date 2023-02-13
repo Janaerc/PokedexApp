@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         usuario = findViewById(R.id.editTextUsuario);
         senha = findViewById(R.id.editTextSenha);
+
     }
 
     public void convert (View view) {
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<UsuarioDTO> call1, Response<UsuarioDTO> response) {
                 if (response.isSuccessful()) {
                     usuarioDTO = response.body();
-
+                    System.out.println("entrou");
                     Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
                     intent.putExtra("usuario", usuarioDTO);
                     startActivity(intent);
@@ -57,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(Call<UsuarioDTO> call, Throwable t) {
                 Toast.makeText(MainActivity.this, "Erro de API", Toast.LENGTH_SHORT).show();
             System.out.println(t.getMessage());
+                System.out.println(t.getStackTrace());
+
             }
         });
     }
