@@ -11,6 +11,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -56,6 +57,10 @@ public interface PokedexService {
     Call<PokemonDTO> getPokemonById(@Path("id") Long id);
     @GET("mutantes")
     Call<List<PokemonDTO>> getAllPokemons();
+
+
+    @DELETE("mutantes/{id}")
+    Call<PokemonDTO> deletePokemon(@Path("id") Long id);
 
 
 
