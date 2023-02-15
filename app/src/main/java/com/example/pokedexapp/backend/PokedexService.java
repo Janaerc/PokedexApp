@@ -27,19 +27,25 @@ public interface PokedexService {
 
     @GET("mutantes/{id}")
     Call<MutanteDTO> getMutanteById(@Path("id") Long id);
-
-    @GET("mutantes/count")
+    */
+    @GET("Pokemons/count")
     Call<Integer> getCount();
 
     @GET("habilidades/top")
-    Call<List<String>> getTopHabilities();
+    Call<List<String>> getTopHabilidades();
 
+    @GET("tipos/top")
+    Call<List<String>> getTopTipo();
+    /*
     @GET("mutantes/{hab}/habilidades")
     Call<List<MutanteDTO>> getMutantesByHabilidade(@Path("hab") String hab);
+    */
+    @POST("Pokemons")
+    Call<PokemonDTO> cadastrarPokemon(@Body PokemonDTO pokemonDTO);
 
-    @POST("mutantes")
-    Call<MutanteDTO> postMutante(@Body MutanteDTO mutanteDTO);
-
+    @GET("ProcurarTipo/{tipo}")
+    Call<List<String>> procurarTipo(@Path("tipo") String tipo);
+ /*
     @PUT("mutantes/{id}")
     Call<MutanteDTO> putMutante(@Path("id") Long id, @Body MutanteDTO mutanteDTO);
 
@@ -48,20 +54,6 @@ public interface PokedexService {
  */
     @GET("usuarios/{id}")
     Call<UsuarioDTO> getUsuario(@Path("id") Long id);
-
-
-
-
-
-    @GET("pokemons/{id}")
-    Call<PokemonDTO> getPokemonById(@Path("id") Long id);
-    @GET("mutantes")
-    Call<List<PokemonDTO>> getAllPokemons();
-
-
-    @DELETE("mutantes/{id}")
-    Call<PokemonDTO> deletePokemon(@Path("id") Long id);
-
 
 
 

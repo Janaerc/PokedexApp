@@ -1,118 +1,121 @@
 package com.example.pokedexapp;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
+
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.os.Build;
+
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import android.view.View;
+
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import android.net.Uri;
+import retrofit2.Call;
+import retrofit2.Callback;
+
+import retrofit2.Response;
+
+
+import com.example.pokedexapp.backend.ImageConverter;
 import com.example.pokedexapp.backend.RetrofitConfig;
 import com.example.pokedexapp.data.model.PokemonDTO;
 import com.example.pokedexapp.data.model.UsuarioDTO;
-import com.example.pokedexapp.helper.ImageConverter;
 
-import javax.security.auth.callback.Callback;
-
-import retrofit2.Call;
-import retrofit2.Response;
+import java.io.IOException;
 
 public class CadastroPokemon extends AppCompatActivity {
-
 
     private static final int CAMERA  = 100;
     private static final int GALERIA = 200;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
 
+
     String base64;
     Bitmap bitmap;
-    UsuarioDTO usuarioDTO, usuarioDono;
-    PokemonDTO pokemonDTO;
-    String operacao;
 
-    EditText editTextNome, editTextHabilidade1, editTextHabilidade2, editTextHabilidade3;
+
+    UsuarioDTO usuarioDTO;
+    EditText nomePokemon, tipoPokemon, habilidadePokemon;
+    Button buttonSalvar, buttonCamera, buttonGaleria;
     ImageView imageView;
-    TextView textViewUsuario;
-    Button buttonCadastrar, buttonCamera, buttonGaleria;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_pokemon);
 
-        Bundle params = getIntent().getExtras();
 
-        if (params != null) {
-            operacao = params.getString("operacao");
-            pokemonDTO = (PokemonDTO) params.getSerializable("pokemon");
-            usuarioDTO = (UsuarioDTO) params.getSerializable("usuario");
-        }
+        usuarioDTO = (UsuarioDTO) getIntent().getSerializableExtra("usuario");
+        nomePokemon = findViewById(R.id.editTextNomePokemon);
+        tipoPokemon = findViewById(R.id.editTextTipoPokemon);
+        habilidadePokemon = findViewById(R.id.editTextHabilidades);
+        imageView = findViewById(R.id.fotoPokemon);
 
-
-        editTextNome = findViewById(R.id.editTextNomePokemon);
-        editTextHabilidade1 = findViewById(R.id.editTextHabilidades);
-        //imageView           = findViewById(R.id.imageViewFotoMutante);
-        buttonCadastrar = findViewById(R.id.btnCadastrar);
-        // buttonCamera        = findViewById(R.id.buttonCamera);
-        // buttonGaleria       = findViewById(R.id.buttonGaleria);
-        textViewUsuario = findViewById(R.id.idUsuario);
-
-
-        String aux = getIntent().getStringExtra("id");
-        System.out.println("AQUI É o FRONT CADASTRO");
-        System.out.println(aux);
-        textViewUsuario.setText(aux);
-
-
-        if (!operacao.equals("new")) {
-            editTextNome.setText(pokemonDTO.getNome());
-            if (pokemonDTO.getHabilidades() != null) {
-                if (pokemonDTO.getHabilidades().size() > 0)
-                    editTextHabilidade1.setText(pokemonDTO.getHabilidades().get(0).getDescricao());
-                if (pokemonDTO.getHabilidades().size() > 1)
-                    editTextHabilidade2.setText(pokemonDTO.getHabilidades().get(1).getDescricao());
-                if (pokemonDTO.getHabilidades().size() > 2)
-                    editTextHabilidade3.setText(pokemonDTO.getHabilidades().get(2).getDescricao());
-            }
-            base64 = pokemonDTO.getImagem();
-            bitmap = ImageConverter.base64ToBitmap(base64);
-            imageView.setImageBitmap(bitmap);
-
-            recuperaUsuarioDono(pokemonDTO.getIdUsuario());
-
-            editTextNome.setEnabled(false);
-            editTextHabilidade1.setEnabled(false);
-            buttonCadastrar.setEnabled(false);
-            buttonCamera.setEnabled(false);
-            buttonGaleria.setEnabled(false);
-
-        }
     }
-        private void recuperaUsuarioDono(Long idUsuario){
+
+
+    public void cadastrar(View view) {
+        PokemonDTO pokemon = new PokemonDTO();
+        pokemon.setId_usuario(usuarioDTO.getId());
+        pokemon.setNome_pokemon(nomePokemon.getText().toString());
+        pokemon.setTipo_pokemon(tipoPokemon.getText().toString());
+        pokemon.setHabilidade(habilidadePokemon.getText().toString());
+        pokemon.setFoto_pokemon(base64);
+
+
+        Call<PokemonDTO> call1 = new RetrofitConfig().getPokedexService().cadastrarPokemon(pokemon);
+        System.out.println(pokemon.getId_usuario());
+        System.out.println(pokemon.getNome_pokemon());
+        System.out.println(pokemon.getTipo_pokemon());
+        System.out.println(pokemon.getHabilidade());
+
+
 
             Call<UsuarioDTO> call1 = new RetrofitConfig().getPokedexService().getUsuario(idUsuario);
 
-            call1.enqueue(new Callback<UsuarioDTO>() {
-                @Override
-                public void onResponse(Call<UsuarioDTO> call, Response<UsuarioDTO> response) {
-                    if (response.isSuccessful()) {
-                        usuarioDono = response.body();
-                        textViewUsuario.setText("Usuário:" + usuarioDono.getNome());
-                    }
-                }
+
+        call1.enqueue(new Callback<PokemonDTO>()    {
+
+            @Override
+            public void onResponse(Call<PokemonDTO> call, Response<PokemonDTO> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(CadastroPokemon.this, "Mutante salvo com sucesso!!!", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (response.code() == 409)
+                        Toast.makeText(CadastroPokemon.this, "Mutante já cadastrado", Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(CadastroPokemon.this, "Erro ao salvar Mutante", Toast.LENGTH_SHORT).show();
+                }}
+
+            @Override
+            public void onFailure(Call<PokemonDTO> call, Throwable t) {
+
+
+            }
+        });
+
 
                 @Override
                 public void onFailure(Call<UsuarioDTO> call, Throwable t) {
@@ -241,5 +244,73 @@ public class CadastroPokemon extends AppCompatActivity {
         }
 
     }
-*/
+
+    /*
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void camera(View view) {
+
+        if (this.checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
+        {
+            requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
+        }
+        else
+        {
+            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(cameraIntent, CAMERA);
+        }
+    }*/
+
+
+    public void galeria(View view) {
+        Intent it = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(it, GALERIA);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == MY_CAMERA_PERMISSION_CODE)
+        {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            {
+                Toast.makeText(this, "camera permission granted", Toast.LENGTH_LONG).show();
+                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent, CAMERA);
+            }
+            else
+            {
+                Toast.makeText(this, "camera permission denied", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK) {
+
+            if (requestCode == CAMERA) {
+                bitmap = (Bitmap) data.getExtras().get("data");
+                Log.i("INFO", String.format("Camera: %dx%d\n", bitmap.getWidth(), bitmap.getHeight()));
+                imageView.setImageBitmap(bitmap);
+                base64 = ImageConverter.bitmapToBase64(bitmap);
+            }
+
+            if (requestCode == GALERIA) {
+                Uri imageUri = data.getData();
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+                    Log.i("INFO", String.format("Galeria: %dx%d\n", bitmap.getWidth(), bitmap.getHeight()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                imageView.setImageBitmap(bitmap);
+                base64 = ImageConverter.bitmapToBase64(bitmap);
+            }
+        }
+    }
+
+
 }
