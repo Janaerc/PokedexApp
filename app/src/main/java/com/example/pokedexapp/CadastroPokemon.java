@@ -37,7 +37,7 @@ import com.example.pokedexapp.data.model.UsuarioDTO;
 import java.io.IOException;
 
 public class CadastroPokemon extends AppCompatActivity {
-
+    //comentario
     private static final int CAMERA  = 100;
     private static final int GALERIA = 200;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
