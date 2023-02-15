@@ -16,6 +16,9 @@ import android.widget.Toast;
 import android.util.Log;
 
 import com.example.pokedexapp.backend.RetrofitConfig;
+import com.example.pokedexapp.data.model.UsuarioDTO;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,13 +28,23 @@ public class DashboardActivity extends AppCompatActivity {
 
     private final static int LOGIN = 1;
 
-    TextView textViewTotalPokemon;
+    UsuarioDTO usuarioDTO;
+    TextView textViewTotalPokemon, TextViewHabilidades1, TextViewHabilidades2
+            , TextViewHabilidades3, TextViewTipo2, TextViewTipo3, TextViewTipo1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
+        usuarioDTO = (UsuarioDTO) getIntent().getSerializableExtra("usuario");
+
         textViewTotalPokemon = findViewById(R.id.textView5);
+        TextViewHabilidades1 = findViewById(R.id.TxtHabilidade1);
+        TextViewHabilidades2 = findViewById(R.id.TxtHabilidade2);
+        TextViewHabilidades3 = findViewById(R.id.TxtHabilidade3);
+        TextViewTipo1 = findViewById(R.id.txtTipo1);
+        TextViewTipo2 = findViewById(R.id.txtTipo2);
+        TextViewTipo3 = findViewById(R.id.txtTipo3);
         /*SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
         boolean isLoggedIn = sharedPref.getBoolean("is_logged_in", false);
         int id = sharedPref.getInt("id", -1);
@@ -48,16 +61,20 @@ public class DashboardActivity extends AppCompatActivity {
     protected void onStart(){
         super.onStart();
         getPokemonCount();
+        getTopHabilidades();
+       // getTopTipos();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         getPokemonCount();
-
+        getTopHabilidades();
+        //getTopTipos();
     }
 
     private void getPokemonCount(){
+        System.out.println("entrou no getpokemoncount");
         Call<Integer> call1 = new RetrofitConfig().getPokedexService().getCount();
 
         call1.enqueue(new Callback<Integer>() {
@@ -81,6 +98,64 @@ public class DashboardActivity extends AppCompatActivity {
         });
     }
 
+    private void getTopHabilidades(){
+        Call<List<String>> call1 = new RetrofitConfig().getPokedexService().getTopHabilidades();
+        call1.enqueue(new Callback<List<String>>() {
+            @Override
+            public void onResponse(Call<List<String>> call, Response<List<String>> response) {
+                List<String> lista = response.body();
+                if (lista.size() > 0)
+                    TextViewHabilidades1.setText(lista.get(0));
+                else
+                    TextViewHabilidades1.setText("");
+                if (lista.size() > 1)
+                    TextViewHabilidades2.setText(lista.get(1));
+                else
+                    TextViewHabilidades2.setText("");
+                if (lista.size() > 2)
+                    TextViewHabilidades3.setText(lista.get(2));
+                else
+                    TextViewHabilidades3.setText("");
+            }
+
+
+
+            @Override
+            public void onFailure(Call<List<String>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    /*
+    public void getTopTipos(){
+        Call<List<String>> call1 = new RetrofitConfig().getPokedexService().getTopTipo();
+        call1.enqueue(new Callback<List<String>>() {
+            @Override
+            public void onResponse(Call<List<String>> call, Response<List<String>> response) {
+                List<String> lista = response.body();
+                if (lista.size() > 0)
+                    TextViewTipo1.setText(lista.get(0));
+                else
+                    TextViewTipo1.setText("");
+                if (lista.size() > 1)
+                    TextViewTipo2.setText(lista.get(1));
+                else
+                    TextViewTipo2.setText("");
+                if (lista.size() > 2)
+                    TextViewTipo3.setText(lista.get(2));
+                else
+                    TextViewTipo3.setText("");
+            }
+
+
+
+            @Override
+            public void onFailure(Call<List<String>> call, Throwable t) {
+
+            }
+        });
+    }*/
 
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -96,6 +171,7 @@ public class DashboardActivity extends AppCompatActivity {
 
             case R.id.CadastroPokemon:
                 Intent it = new Intent( this, CadastroPokemon.class);
+                it.putExtra("usuario", usuarioDTO);
                 startActivity(it);
                 return true;
 

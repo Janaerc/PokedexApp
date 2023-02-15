@@ -105,16 +105,32 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20sp"
             android:backgroundTint="#F00000"
+            android:onClick="cadastrar"
+            android:text="Cadastrar"
             android:textColor="#F0F0F0"
             android:textSize="25sp"
-            app:iconTint="#F00000"
-            android:onClick="cadastrarPokemon"
-            android:text="Cadastrar" />
+            app:iconTint="#F00000" />
 
-        <ImageView
-            android:id="@+id/imageView3"
+        <Button
+            android:id="@+id/btGaleria"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:onClick="galeria"
+            android:text="Galera" />
+
+        <Button
+            android:id="@+id/btCamera"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:onClick="camera"
+            android:text="Camera" />
+
+        <ImageView
+            android:id="@+id/fotoPokemon"
+            android:layout_width="225dp"
+            android:layout_height="30dp"
             android:layout_weight="1"
             app:srcCompat="@drawable/ic_launcher_foreground" />
 
