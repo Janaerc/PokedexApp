@@ -33,7 +33,7 @@ public interface PokedexService {
     @GET("habilidades/top")
     Call<List<String>> getTopHabilidades();
 
-    @GET("tipo/top")
+    @GET("tipos/top")
     Call<List<String>> getTopTipo();
     /*
     @GET("mutantes/{hab}/habilidades")
@@ -41,6 +41,9 @@ public interface PokedexService {
     */
     @POST("Pokemons")
     Call<PokemonDTO> cadastrarPokemon(@Body PokemonDTO pokemonDTO);
+
+    @GET("ProcurarTipo/{tipo}")
+    Call<List<String>> procurarTipo(@Path("tipo") String tipo);
  /*
     @PUT("mutantes/{id}")
     Call<MutanteDTO> putMutante(@Path("id") Long id, @Body MutanteDTO mutanteDTO);
@@ -50,5 +53,7 @@ public interface PokedexService {
  */
     @GET("usuarios/{id}")
     Call<UsuarioDTO> getUsuario(@Path("id") Long id);
+
+
 
 }

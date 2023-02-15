@@ -62,7 +62,7 @@ public class DashboardActivity extends AppCompatActivity {
         super.onStart();
         getPokemonCount();
         getTopHabilidades();
-       // getTopTipos();
+        getTopTipos();
     }
 
     @Override
@@ -70,7 +70,7 @@ public class DashboardActivity extends AppCompatActivity {
         super.onResume();
         getPokemonCount();
         getTopHabilidades();
-        //getTopTipos();
+        getTopTipos();
     }
 
     private void getPokemonCount(){
@@ -127,7 +127,7 @@ public class DashboardActivity extends AppCompatActivity {
         });
     }
 
-    /*
+
     public void getTopTipos(){
         Call<List<String>> call1 = new RetrofitConfig().getPokedexService().getTopTipo();
         call1.enqueue(new Callback<List<String>>() {
@@ -148,14 +148,12 @@ public class DashboardActivity extends AppCompatActivity {
                     TextViewTipo3.setText("");
             }
 
-
-
             @Override
             public void onFailure(Call<List<String>> call, Throwable t) {
 
             }
         });
-    }*/
+    }
 
 
     public boolean onCreateOptionsMenu(Menu menu) {

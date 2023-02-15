@@ -57,7 +57,7 @@ public class CadastroPokemon extends AppCompatActivity {
 
         usuarioDTO = (UsuarioDTO) getIntent().getSerializableExtra("usuario");
         nomePokemon = findViewById(R.id.editTextNomePokemon);
-        tipoPokemon = findViewById(R.id.editTextNomePokemon);
+        tipoPokemon = findViewById(R.id.editTextTipoPokemon);
         habilidadePokemon = findViewById(R.id.editTextHabilidades);
         imageView = findViewById(R.id.fotoPokemon);
 
@@ -66,13 +66,21 @@ public class CadastroPokemon extends AppCompatActivity {
     public void cadastrar(View view) {
         PokemonDTO pokemon = new PokemonDTO();
         pokemon.setId_usuario(usuarioDTO.getId());
-        pokemon.setNome_pokemon(nomePokemon.toString());
-        pokemon.setTipo_pokemon(tipoPokemon.toString());
-        pokemon.setHabilidade.setDescricao_habilidade(habilidadePokemon.toString());
+        pokemon.setNome_pokemon(nomePokemon.getText().toString());
+        pokemon.setTipo_pokemon(tipoPokemon.getText().toString());
+        pokemon.setHabilidade(habilidadePokemon.getText().toString());
         pokemon.setFoto_pokemon(base64);
 
         Call<PokemonDTO> call1 = new RetrofitConfig().getPokedexService().cadastrarPokemon(pokemon);
-        call1.enqueue(new Callback<PokemonDTO>() {
+        System.out.println(pokemon.getId_usuario());
+        System.out.println(pokemon.getNome_pokemon());
+        System.out.println(pokemon.getTipo_pokemon());
+        System.out.println(pokemon.getHabilidade());
+
+
+
+        call1.enqueue(new Callback<PokemonDTO>()    {
+
             @Override
             public void onResponse(Call<PokemonDTO> call, Response<PokemonDTO> response) {
                 if (response.isSuccessful()) {
@@ -139,7 +147,7 @@ public class CadastroPokemon extends AppCompatActivity {
         }
 
     }
-/*
+    /*
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void camera(View view) {
 

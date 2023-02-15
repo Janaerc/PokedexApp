@@ -8,23 +8,24 @@ public class PokemonDTO implements Serializable {
     private int id_usuario;
     private String tipo_pokemon;
     private String foto_pokemon;
-    private HabilidadeDTO habilidade;
+    private String habilidade_pokemon;
 
-    public HabilidadeDTO getHabilidade() {
-        return habilidade;
+
+    public String getHabilidade() {
+        return habilidade_pokemon;
     }
 
-    public void setHabilidade(HabilidadeDTO habilidade) {
-        this.habilidade = habilidade;
+    public void setHabilidade(String habilidade_pokemon) {
+        this.habilidade_pokemon = habilidade_pokemon;
     }
 
-    public PokemonDTO(int id_pokemon, String nome_pokemon, int id_usuario, String tipo_pokemon, String foto_pokemon, HabilidadeDTO habilidade) {
+    public PokemonDTO(int id_pokemon, String nome_pokemon, int id_usuario, String tipo_pokemon, String foto_pokemon, String habilidade_pokemon) {
         this.id_pokemon = id_pokemon;
         this.nome_pokemon = nome_pokemon;
         this.id_usuario = id_usuario;
         this.tipo_pokemon = tipo_pokemon;
         this.foto_pokemon = foto_pokemon;
-        this.habilidade = habilidade;
+        this.habilidade_pokemon = habilidade_pokemon;
     }
 
     public int getId_pokemon() {
