@@ -52,8 +52,8 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         PokemonDTO pokemonDTO = list.get(position);
-        holder.nome.setText(pokemonDTO.getNome());
-        holder.imagem.setImageBitmap(ImageConverter.base64ToBitmap(pokemonDTO.getImagem()));
+        holder.nome.setText(pokemonDTO.getNome_pokemon());
+        holder.imagem.setImageBitmap(ImageConverter.base64ToBitmap(pokemonDTO.getFoto_pokemon()));
     }
 
     @Override
