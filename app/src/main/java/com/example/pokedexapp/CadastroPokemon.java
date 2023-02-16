@@ -1,40 +1,31 @@
 package com.example.pokedexapp;
 
 import androidx.annotation.NonNull;
-
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Build;
-
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import android.view.View;
-
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import android.net.Uri;
 import retrofit2.Call;
 import retrofit2.Callback;
-
 import retrofit2.Response;
 
 
@@ -51,10 +42,8 @@ public class CadastroPokemon extends AppCompatActivity {
     private static final int GALERIA = 200;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
 
-
     String base64;
     Bitmap bitmap;
-
 
     UsuarioDTO usuarioDTO;
     EditText nomePokemon, tipoPokemon, habilidadePokemon;
@@ -66,7 +55,6 @@ public class CadastroPokemon extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_pokemon);
 
-
         usuarioDTO = (UsuarioDTO) getIntent().getSerializableExtra("usuario");
         nomePokemon = findViewById(R.id.editTextNomePokemon);
         tipoPokemon = findViewById(R.id.editTextTipoPokemon);
@@ -74,7 +62,6 @@ public class CadastroPokemon extends AppCompatActivity {
         imageView = findViewById(R.id.fotoPokemon);
 
     }
-
 
     public void cadastrar(View view) {
         PokemonDTO pokemon = new PokemonDTO();
@@ -84,16 +71,12 @@ public class CadastroPokemon extends AppCompatActivity {
         pokemon.setHabilidade(habilidadePokemon.getText().toString());
         pokemon.setFoto_pokemon(base64);
 
-
         Call<PokemonDTO> call1 = new RetrofitConfig().getPokedexService().cadastrarPokemon(pokemon);
         System.out.println(pokemon.getId_usuario());
         System.out.println(pokemon.getNome_pokemon());
         System.out.println(pokemon.getTipo_pokemon());
         System.out.println(pokemon.getHabilidade());
 
-
-
-            Call<UsuarioDTO> call1 = new RetrofitConfig().getPokedexService().getUsuario(idUsuario);
 
 
         call1.enqueue(new Callback<PokemonDTO>()    {
@@ -117,97 +100,17 @@ public class CadastroPokemon extends AppCompatActivity {
         });
 
 
-                @Override
-                public void onFailure(Call<UsuarioDTO> call, Throwable t) {
-                    Toast.makeText(CadastroPokemon.this, "Erro ao recuperar Usuário", Toast.LENGTH_SHORT).show();
-                }
-            });
 
-        }
+    }
 
-       /* @Override
-        public boolean onCreateOptionsMenu (Menu menu){
-
-            if (!operacao.equals("new")) {
-                getMenuInflater().inflate(R.menu.main_menu, menu);
-            }
-            return super.onCreateOptionsMenu(menu);
-        }
-
-    }*/
-        @Override
-        public boolean onCreateOptionsMenu(Menu menu) {
-
-            if (!operacao.equals("new")) {
-                getMenuInflater().inflate(R.menu.menu_edicao, menu);
-            }
-            return super.onCreateOptionsMenu(menu);
-        }
-
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem menuItem) {
-
-        if (menuItem.getItemId() == R.id.menu_editar) {
-            operacao = "edit";
-            editTextNome.setEnabled(true);
-            editTextHabilidade1.setEnabled(true);
-            buttonCadastrar.setEnabled(true);
-            buttonCamera.setEnabled(true);
-            buttonGaleria.setEnabled(true);
-        } else if (menuItem.getItemId() == R.id.menu_excluir) {
-            AlertDialog.Builder dialog = new AlertDialog.Builder(CadastroPokemon.this);
-            dialog.setTitle("Confirmar Exclusão");
-            dialog.setMessage("Deseja excluir o Mutante: " + pokemonDTO.getNome() + "?");
-            dialog.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-
-                    Call<PokemonDTO> call1 = new RetrofitConfig().getPokedexService().deletePokemon(pokemonDTO.getId());
-
-                    call1.enqueue(new Callback<PokemonDTO>() {
-                        @Override
-                        public void onResponse(Call<PokemonDTO> call, Response<PokemonDTO> response) {
-                            if (response.isSuccessful()) {
-                                Toast.makeText(CadastroPokemon.this, "Mutante deletado!!", Toast.LENGTH_SHORT).show();
-                                finish();
-                            } else
-                                Toast.makeText(CadastroPokemon.this, "Erro ao deletar Pokemon", Toast.LENGTH_SHORT).show();
-                        }
-
-                        @Override
-                        public void onFailure(Call<PokemonDTO> call, Throwable t) {
-                            Toast.makeText(CadastroPokemon.this, "Erro de API:" + t.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    });
-
-                }
-            });
-            dialog.setNegativeButton("Não", null);
-
-            dialog.create();
-            dialog.show();
-        }
-
-        return super.onOptionsItemSelected(menuItem);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
     }
 
 
 
 
-
-
-
-}
-
-    //public boolean onCreateOptionsMenu(Menu menu) {
-    //    getMenuInflater().inflate(R.menu.main_menu, menu);
-    //    return true;
-   // }
-
-
-
-/*
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
 
@@ -245,7 +148,6 @@ public class CadastroPokemon extends AppCompatActivity {
 
     }
 
-    /*
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void camera(View view) {
 
@@ -258,7 +160,7 @@ public class CadastroPokemon extends AppCompatActivity {
             Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(cameraIntent, CAMERA);
         }
-    }*/
+    }
 
 
     public void galeria(View view) {
@@ -311,6 +213,5 @@ public class CadastroPokemon extends AppCompatActivity {
             }
         }
     }
-
 
 }
