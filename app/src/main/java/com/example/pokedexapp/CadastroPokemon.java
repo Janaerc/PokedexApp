@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -84,12 +85,12 @@ public class CadastroPokemon extends AppCompatActivity {
             @Override
             public void onResponse(Call<PokemonDTO> call, Response<PokemonDTO> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(CadastroPokemon.this, "Mutante salvo com sucesso!!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CadastroPokemon.this, "Pokemon salvo com sucesso!!!", Toast.LENGTH_SHORT).show();
                 } else {
                     if (response.code() == 409)
-                        Toast.makeText(CadastroPokemon.this, "Mutante já cadastrado", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CadastroPokemon.this, "Pokemon já cadastrado", Toast.LENGTH_SHORT).show();
                     else
-                        Toast.makeText(CadastroPokemon.this, "Erro ao salvar Mutante", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CadastroPokemon.this, "Erro ao salvar Pokemon", Toast.LENGTH_SHORT).show();
                 }}
 
             @Override
@@ -151,13 +152,13 @@ public class CadastroPokemon extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void camera(View view) {
 
-        if (this.checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
+        if (this.checkSelfPermission(android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
         {
             requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
         }
         else
         {
-            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(cameraIntent, CAMERA);
         }
     }
