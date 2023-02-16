@@ -44,7 +44,7 @@ public interface PokedexService {
     Call<PokemonDTO> cadastrarPokemon(@Body PokemonDTO pokemonDTO);
 
     @GET("ProcurarTipo/{tipo}")
-    Call<List<String>> procurarTipo(@Path("tipo") String tipo);
+    Call<List<PokemonDTO>> procurarTipo(@Path("tipo") String tipo);
  /*
     @PUT("mutantes/{id}")
     Call<MutanteDTO> putMutante(@Path("id") Long id, @Body MutanteDTO mutanteDTO);

@@ -45,7 +45,7 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View pokemonItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_cadastro_pokemon, parent, false);
+        View pokemonItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_list_pokemons, parent, false);
         return new MyViewHolder(pokemonItem);
     }
 
@@ -60,9 +60,6 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
     public int getItemCount() {
         return this.list.size();
     }
-
-
-
 
 
 
