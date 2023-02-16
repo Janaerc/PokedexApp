@@ -11,6 +11,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -43,7 +44,7 @@ public interface PokedexService {
     Call<PokemonDTO> cadastrarPokemon(@Body PokemonDTO pokemonDTO);
 
     @GET("ProcurarTipo/{tipo}")
-    Call<List<String>> procurarTipo(@Path("tipo") String tipo);
+    Call<List<PokemonDTO>> procurarTipo(@Path("tipo") String tipo);
  /*
     @PUT("mutantes/{id}")
     Call<MutanteDTO> putMutante(@Path("id") Long id, @Body MutanteDTO mutanteDTO);

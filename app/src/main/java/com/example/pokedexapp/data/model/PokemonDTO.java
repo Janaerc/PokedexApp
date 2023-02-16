@@ -2,6 +2,7 @@ package com.example.pokedexapp.data.model;
 
 import java.io.Serializable;
 
+
 public class PokemonDTO implements Serializable {
     private int id_pokemon;
     private String nome_pokemon;
@@ -75,5 +76,6 @@ public class PokemonDTO implements Serializable {
 
 
 }
+
 
 

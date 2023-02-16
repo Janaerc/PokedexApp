@@ -24,13 +24,6 @@ public class ListarTodos extends AppCompatActivity {
 
         setContentView(R.layout.activity_listar_todos2);
 
-        SharedPreferences sharedPref = getSharedPreferences("user_session", Context.MODE_PRIVATE);
-        boolean isLoggedIn = sharedPref.getBoolean("is_logged_in", false);
-        if (!isLoggedIn) {
-            Intent loginIntent = new Intent(this, MainActivity.class);
-            startActivity(loginIntent);
-            finish();
-        }
 
 
 
