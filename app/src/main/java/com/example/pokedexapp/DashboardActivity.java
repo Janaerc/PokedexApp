@@ -45,17 +45,7 @@ public class DashboardActivity extends AppCompatActivity {
         TextViewTipo1 = findViewById(R.id.txtTipo1);
         TextViewTipo2 = findViewById(R.id.txtTipo2);
         TextViewTipo3 = findViewById(R.id.txtTipo3);
-        /*SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
-        boolean isLoggedIn = sharedPref.getBoolean("is_logged_in", false);
-        int id = sharedPref.getInt("id", -1);
-        System.out.println("esse é o valor que ta passando de id:" + id);
 
-        if (id == -1) {
-            Intent loginIntent = new Intent(this, MainActivity.class);
-            Toast.makeText(this, "Login inválido", Toast.LENGTH_SHORT).show();
-            startActivity(loginIntent);
-            finish();
-        }*/
     }
     @Override
     protected void onStart(){
@@ -175,16 +165,19 @@ public class DashboardActivity extends AppCompatActivity {
 
             case R.id.ListarTodos:
                 it = new Intent( this, ListarTodos.class);
+                it.putExtra("usuario", usuarioDTO);
                 startActivity(it);
                 return true;
 
             case R.id.PesquisarTipo:
-                 it = new Intent( this, PesquisarTipo.class);
+                it = new Intent( this, PesquisarTipo.class);
+                it.putExtra("usuario", usuarioDTO);
                 startActivity(it);
                 return true;
 
             case R.id.PesquisarHabilidade:
-                 it = new Intent( this, PesquisarHabilidade.class);
+                it = new Intent( this, PesquisarHabilidade.class);
+                it.putExtra("usuario", usuarioDTO);
                 startActivity(it);
                 return true;
 

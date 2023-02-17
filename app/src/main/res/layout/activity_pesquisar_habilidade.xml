@@ -32,25 +32,6 @@
             android:layout_weight="0"
             app:srcCompat="@drawable/ic_launcher_foreground" />
 
-        <TextView
-            android:id="@+id/txtPesquisar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:text="Pesquise o Pokemon"
-            android:textColor="#F0F0F0" />
-
-        <TextView
-            android:id="@+id/Pesquisar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Pesquisar Habilidade"
-
-            android:textAlignment="viewEnd"
-            android:textColor="#F0F0F0"
-            android:textSize="25sp" />
-
         <EditText
             android:id="@+id/editTxtPesquisar"
             android:layout_width="match_parent"
@@ -69,16 +50,17 @@
             android:layout_marginTop="20sp"
             android:layout_marginBottom="20sp"
             android:backgroundTint="#F00000"
+            android:onClick="pesquisar"
             android:text="Pesquisar"
             android:textColor="#F0F0F0"
             android:textSize="25sp"
             app:iconTint="#F00000" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/RecyclerViewPokemons"
+        <TextView
+            android:id="@+id/txtPesquisar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
             android:textColor="#F0F0F0" />
 
     </LinearLayout>
