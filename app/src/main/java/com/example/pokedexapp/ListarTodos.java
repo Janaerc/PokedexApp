@@ -2,7 +2,6 @@ package com.example.pokedexapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.telecom.Call;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,8 +17,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pokedexapp.adapter.PokemonListAdapter;
+
+import com.example.pokedexapp.backend.ImageConverter;
 import com.example.pokedexapp.backend.RetrofitConfig;
 import com.example.pokedexapp.data.model.PokemonDTO;
+import com.example.pokedexapp.data.model.UsuarioDTO;
+
+import com.example.pokedexapp.backend.RetrofitConfig;
+import com.example.pokedexapp.data.model.PokemonDTO;
+
 import com.example.pokedexapp.helper.RecyclerItemClickListener;
 
 import java.util.ArrayList;
@@ -32,6 +38,9 @@ import retrofit2.Response;
 public class ListarTodos extends AppCompatActivity {
 
 
+    UsuarioDTO usuarioDTO;
+
+
     private RecyclerView recyclerView;
     private PokemonListAdapter pokemonListAdapter;
     private List<PokemonDTO> pokemonDTOList = new ArrayList<>();
@@ -40,10 +49,39 @@ public class ListarTodos extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        usuarioDTO = (UsuarioDTO) getIntent().getSerializableExtra("usuario");
         setContentView(R.layout.activity_listar_todos2);
 
         recyclerView = findViewById(R.id.recyclerViewTodosPokemons);
+
+/*
+        Call<List<PokemonDTO>> call1 = new RetrofitConfig().getPokedexService().getAllPokemons();
+
+        call1.enqueue(new Callback<List<PokemonDTO>>() {
+            @Override
+            public void onResponse(Call<List<PokemonDTO>> call, Response<List<PokemonDTO>> response) {
+                List<PokemonDTO> lista = response.body();
+                System.out.println(lista.get(0).getNome_pokemon());
+                System.out.println(lista.get(1).getNome_pokemon());
+                System.out.println(lista.get(2).getNome_pokemon());
+                System.out.println(lista.get(3).getNome_pokemon());
+                System.out.println(lista.get(4).getNome_pokemon());
+
+                recyclerView.
+
+            }
+
+            @Override
+            public void onFailure(Call<List<PokemonDTO>> call, Throwable t) {
+
+            }
+        });
+
+*/
+
+
+
+
 
 //Adicionar eventos de clique no recycler
         recyclerView.addOnItemTouchListener(
@@ -53,6 +91,9 @@ public class ListarTodos extends AppCompatActivity {
                             public void onItemClick(View view, int position) {
                                 int id = pokemonDTOList.get(position).getId_pokemon();
 
+
+                                id = 1;
+
                                 Call<PokemonDTO> call1 = new RetrofitConfig().getPokedexService().getPokemonById(id);
 
                                 call1.enqueue(new Callback<PokemonDTO>() {
@@ -60,17 +101,23 @@ public class ListarTodos extends AppCompatActivity {
                                     public void onResponse(Call<PokemonDTO> call, Response<PokemonDTO> response) {
                                         if (response.isSuccessful()) {
                                             PokemonDTO selectedPokemonDTO = response.body();
+                                            System.out.println(selectedPokemonDTO.getNome_pokemon());
+                                            System.out.println("aqui em cima é no listartodos pegando por id");
 
                                             Bundle params = new Bundle();
                                             params.putString("operacao", "view");
                                             params.putSerializable("pokemon", selectedPokemonDTO);
 
+                                            //IR PARA UMA ACTIVITY NOVA, NAO A CADASTRO POKEMON, APESAR DE SER PARECIDA
                                             Intent it = new Intent(ListarTodos.this, CadastroPokemon.class);
-                                            it.putExtras(params);
+                                            it.putExtra("update", "update");
+                                            it.putExtra("pokemon", selectedPokemonDTO);
+                                            it.putExtra("usuario", usuarioDTO);
                                             startActivity(it);
                                         } else
                                             Toast.makeText(ListarTodos.this, "Erro ao recuperar Pokemon", Toast.LENGTH_SHORT).show();
                                     }
+
 
                                     @Override
                                     public void onFailure(Call<PokemonDTO> call, Throwable t) {
@@ -141,7 +188,7 @@ public class ListarTodos extends AppCompatActivity {
     }
 
 
-}
+
 
 
 
@@ -163,21 +210,25 @@ public class ListarTodos extends AppCompatActivity {
 
             case R.id.CadastroPokemon:
                 Intent it = new Intent( this, CadastroPokemon.class);
+                it.putExtra("usuario", usuarioDTO);
                 startActivity(it);
                 return true;
 
             case R.id.ListarTodos:
                 it = new Intent( this, ListarTodos.class);
+                it.putExtra("usuario", usuarioDTO);
                 startActivity(it);
                 return true;
 
             case R.id.PesquisarTipo:
                 it = new Intent( this, PesquisarTipo.class);
+                it.putExtra("usuario", usuarioDTO);
                 startActivity(it);
                 return true;
 
             case R.id.PesquisarHabilidade:
                 it = new Intent( this, PesquisarHabilidade.class);
+                it.putExtra("usuario", usuarioDTO);
                 startActivity(it);
                 return true;
 

@@ -40,13 +40,15 @@ import java.io.IOException;
 public class CadastroPokemon extends AppCompatActivity {
     //comentario
     private static final int CAMERA  = 100;
+    private static final int CODIGO_REQUISICAO_CAMERA = 1;
     private static final int GALERIA = 200;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
 
-    String base64;
+    String base64, update = "nada";
     Bitmap bitmap;
 
     UsuarioDTO usuarioDTO;
+    PokemonDTO pokemonDTO;
     EditText nomePokemon, tipoPokemon, habilidadePokemon;
     Button buttonSalvar, buttonCamera, buttonGaleria;
     ImageView imageView;
@@ -57,10 +59,22 @@ public class CadastroPokemon extends AppCompatActivity {
         setContentView(R.layout.activity_cadastro_pokemon);
 
         usuarioDTO = (UsuarioDTO) getIntent().getSerializableExtra("usuario");
+        pokemonDTO = (PokemonDTO) getIntent().getSerializableExtra("pokemon");
+        update = (String) getIntent().getSerializableExtra("update");
+
         nomePokemon = findViewById(R.id.editTextNomePokemon);
         tipoPokemon = findViewById(R.id.editTextTipoPokemon);
         habilidadePokemon = findViewById(R.id.editTextHabilidades);
         imageView = findViewById(R.id.fotoPokemon);
+
+        if ("update".equals(update)){
+            System.out.println("aqui era pra ter o nome");
+            System.out.println(pokemonDTO.getId_pokemon());
+            nomePokemon.setText(pokemonDTO.getNome_pokemon());
+            tipoPokemon.setText(pokemonDTO.getTipo_pokemon());
+            habilidadePokemon.setText(pokemonDTO.getHabilidade());
+            imageView.setImageBitmap(ImageConverter.base64ToBitmap(pokemonDTO.getFoto_pokemon()));
+        }
 
     }
 
@@ -119,21 +133,25 @@ public class CadastroPokemon extends AppCompatActivity {
 
             case R.id.CadastroPokemon:
                 Intent it = new Intent( this, CadastroPokemon.class);
+                it.putExtra("usuario", usuarioDTO);
                 startActivity(it);
                 return true;
 
             case R.id.ListarTodos:
                 it = new Intent( this, ListarTodos.class);
+                it.putExtra("usuario", usuarioDTO);
                 startActivity(it);
                 return true;
 
             case R.id.PesquisarTipo:
                 it = new Intent( this, PesquisarTipo.class);
+                it.putExtra("usuario", usuarioDTO);
                 startActivity(it);
                 return true;
 
             case R.id.PesquisarHabilidade:
                 it = new Intent( this, PesquisarHabilidade.class);
+                it.putExtra("usuario", usuarioDTO);
                 startActivity(it);
                 return true;
 
@@ -152,16 +170,16 @@ public class CadastroPokemon extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void camera(View view) {
 
-        if (this.checkSelfPermission(android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
-        {
-            requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
+            Intent intentCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (intentCamera.resolveActivity(getPackageManager()) != null) {
+            // Inicia a atividade da câmera com um código de requisição
+            startActivityForResult(intentCamera, CODIGO_REQUISICAO_CAMERA);
         }
-        else
-        {
-            Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivityForResult(cameraIntent, CAMERA);
-        }
+
+
     }
+
+
 
 
     public void galeria(View view) {
@@ -193,8 +211,9 @@ public class CadastroPokemon extends AppCompatActivity {
 
         if (resultCode == Activity.RESULT_OK) {
 
-            if (requestCode == CAMERA) {
-                bitmap = (Bitmap) data.getExtras().get("data");
+            if (requestCode == CODIGO_REQUISICAO_CAMERA && resultCode == Activity.RESULT_OK) {
+                Bundle extras = data.getExtras();
+                bitmap = (Bitmap) extras.get("data");
                 Log.i("INFO", String.format("Camera: %dx%d\n", bitmap.getWidth(), bitmap.getHeight()));
                 imageView.setImageBitmap(bitmap);
                 base64 = ImageConverter.bitmapToBase64(bitmap);
