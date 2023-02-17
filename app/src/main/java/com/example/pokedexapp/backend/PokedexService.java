@@ -19,7 +19,9 @@ public interface PokedexService {
     Call<UsuarioDTO> login(@Body LoginDTO login);
 
 
+
     @GET("Pokemons")
+
     Call<List<PokemonDTO>> getAllPokemons();
 
     @GET("pokemon/{id}")

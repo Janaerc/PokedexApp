@@ -2,7 +2,6 @@ package com.example.pokedexapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,10 +17,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pokedexapp.adapter.PokemonListAdapter;
+
 import com.example.pokedexapp.backend.ImageConverter;
 import com.example.pokedexapp.backend.RetrofitConfig;
 import com.example.pokedexapp.data.model.PokemonDTO;
 import com.example.pokedexapp.data.model.UsuarioDTO;
+
+import com.example.pokedexapp.backend.RetrofitConfig;
+import com.example.pokedexapp.data.model.PokemonDTO;
+
 import com.example.pokedexapp.helper.RecyclerItemClickListener;
 
 import java.util.ArrayList;
@@ -33,7 +37,10 @@ import retrofit2.Response;
 
 public class ListarTodos extends AppCompatActivity {
 
+
     UsuarioDTO usuarioDTO;
+
+
     private RecyclerView recyclerView;
     private PokemonListAdapter pokemonListAdapter;
     private List<PokemonDTO> pokemonDTOList = new ArrayList<>();
@@ -84,6 +91,7 @@ public class ListarTodos extends AppCompatActivity {
                             public void onItemClick(View view, int position) {
                                 int id = pokemonDTOList.get(position).getId_pokemon();
 
+
                                 id = 1;
 
                                 Call<PokemonDTO> call1 = new RetrofitConfig().getPokedexService().getPokemonById(id);
@@ -109,6 +117,7 @@ public class ListarTodos extends AppCompatActivity {
                                         } else
                                             Toast.makeText(ListarTodos.this, "Erro ao recuperar Pokemon", Toast.LENGTH_SHORT).show();
                                     }
+
 
                                     @Override
                                     public void onFailure(Call<PokemonDTO> call, Throwable t) {
@@ -177,6 +186,7 @@ public class ListarTodos extends AppCompatActivity {
         super.onResume();
         updateRecyclerPokemonList();
     }
+
 
 
 
