@@ -1,8 +1,6 @@
 package com.example.pokedexapp.backend;
 
 
-
-
 import com.example.pokedexapp.data.model.LoginDTO;
 import com.example.pokedexapp.data.model.PokemonDTO;
 import com.example.pokedexapp.data.model.UsuarioDTO;
@@ -11,7 +9,6 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -21,13 +18,13 @@ public interface PokedexService {
     @POST("login")
     Call<UsuarioDTO> login(@Body LoginDTO login);
 
-    /*
-    @GET("mutantes")
-    Call<List<MutanteDTO>> getAllMutantes();
 
-    @GET("mutantes/{id}")
-    Call<MutanteDTO> getMutanteById(@Path("id") Long id);
-    */
+    @GET("pokemons")
+    Call<List<PokemonDTO>> getAllPokemons();
+
+    @GET("pokemon/{id}")
+    Call<PokemonDTO> getPokemonById(@Path("id") int id);
+
     @GET("Pokemons/count")
     Call<Integer> getCount();
 
