@@ -17,15 +17,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pokedexapp.adapter.PokemonListAdapter;
-
-import com.example.pokedexapp.backend.ImageConverter;
 import com.example.pokedexapp.backend.RetrofitConfig;
 import com.example.pokedexapp.data.model.PokemonDTO;
 import com.example.pokedexapp.data.model.UsuarioDTO;
-
-import com.example.pokedexapp.backend.RetrofitConfig;
-import com.example.pokedexapp.data.model.PokemonDTO;
-
 import com.example.pokedexapp.helper.RecyclerItemClickListener;
 
 import java.util.ArrayList;
@@ -92,7 +86,7 @@ public class ListarTodos extends AppCompatActivity {
                                 int id = pokemonDTOList.get(position).getId_pokemon();
 
 
-                                id = 1;
+
 
                                 Call<PokemonDTO> call1 = new RetrofitConfig().getPokedexService().getPokemonById(id);
 
@@ -109,7 +103,7 @@ public class ListarTodos extends AppCompatActivity {
                                             params.putSerializable("pokemon", selectedPokemonDTO);
 
                                             //IR PARA UMA ACTIVITY NOVA, NAO A CADASTRO POKEMON, APESAR DE SER PARECIDA
-                                            Intent it = new Intent(ListarTodos.this, CadastroPokemon.class);
+                                            Intent it = new Intent(ListarTodos.this, DetalhesPokemon.class);
                                             it.putExtra("update", "update");
                                             it.putExtra("pokemon", selectedPokemonDTO);
                                             it.putExtra("usuario", usuarioDTO);

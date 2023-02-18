@@ -77,8 +77,8 @@
 
         <TextView
             android:id="@+id/textView15"
-            android:layout_width="361dp"
-            android:layout_height="146dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginTop="30sp"
             android:layout_weight="0"
             android:textColor="#F0F0F0" />

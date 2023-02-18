@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:layout_width="379dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#F0F0F0"
             android:orientation="horizontal">
@@ -48,42 +48,6 @@
                     android:textAlignment="viewEnd"
                     android:textColor="#EE1515"
                     android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/textView1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10sp"
-                    android:text="Tipo:"
-                    android:textAlignment="viewEnd"
-
-                    android:textColor="#222224" />
-
-                <TextView
-                    android:id="@+id/textViewTipo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Tipo 1"
-                    android:textAlignment="viewEnd"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/textView12"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10sp"
-                    android:text="Habilidade:"
-                    android:textAlignment="viewEnd"
-
-                    android:textColor="#222224" />
-
-                <TextView
-                    android:id="@+id/textViewHabilidade"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Habilidade 1"
-                    android:textAlignment="viewEnd"
-                    android:textSize="18sp" />
 
             </LinearLayout>
         </LinearLayout>

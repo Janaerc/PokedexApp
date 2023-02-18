@@ -32,6 +32,14 @@
             android:layout_weight="0"
             app:srcCompat="@drawable/ic_launcher_foreground" />
 
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:textColor="#F0F0F0"
+            android:text="Pesquise por Habilidade" />
+
         <EditText
             android:id="@+id/editTxtPesquisar"
             android:layout_width="match_parent"
@@ -40,7 +48,6 @@
             android:backgroundTint="#EE1515"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Digite aqui"
             android:textColor="#F00000" />
 
         <Button
