@@ -78,12 +78,32 @@ public class CadastroPokemon extends AppCompatActivity {
     }
 
     public void cadastrar(View view) {
+
         PokemonDTO pokemon = new PokemonDTO();
         pokemon.setId_usuario(usuarioDTO.getId());
         pokemon.setNome_pokemon(nomePokemon.getText().toString());
         pokemon.setTipo_pokemon(tipoPokemon.getText().toString());
         pokemon.setHabilidade(habilidadePokemon.getText().toString());
         pokemon.setFoto_pokemon(base64);
+
+
+        if (pokemon.getNome_pokemon().isEmpty()) {
+            Toast.makeText(this, "Informe o nome do pokemon", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (pokemon.getTipo_pokemon().isEmpty()) {
+            Toast.makeText(this, "Informe o tipo do pokemon", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (pokemon.getHabilidade().isEmpty()) {
+            Toast.makeText(this, "Informe a habilidade do pokemon", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
+
+        else {
 
         Call<PokemonDTO> call1 = new RetrofitConfig().getPokedexService().cadastrarPokemon(pokemon);
         System.out.println(pokemon.getId_usuario());
@@ -117,7 +137,7 @@ public class CadastroPokemon extends AppCompatActivity {
 
 
             }
-        });
+        });}
 
 
 
