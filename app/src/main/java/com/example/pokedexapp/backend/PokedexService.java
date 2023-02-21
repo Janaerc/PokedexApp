@@ -9,6 +9,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -51,10 +52,10 @@ public interface PokedexService {
  /*
     @PUT("mutantes/{id}")
     Call<MutanteDTO> putMutante(@Path("id") Long id, @Body MutanteDTO mutanteDTO);
+*/
+    @DELETE("DeletePokemon/{id}")
+    Call<PokemonDTO> deletar(@Path("id") int id);
 
-    @DELETE("mutantes/{id}")
-    Call<MutanteDTO> deleteMutante(@Path("id") Long id);
- */
     @GET("usuarios/{id}")
     Call<UsuarioDTO> getUsuario(@Path("id") Long id);
 
