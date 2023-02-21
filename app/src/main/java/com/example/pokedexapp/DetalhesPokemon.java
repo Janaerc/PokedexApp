@@ -1,11 +1,13 @@
 package com.example.pokedexapp;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -57,33 +59,62 @@ public class DetalhesPokemon extends AppCompatActivity {
 
     public void atualizar(View view) {
         PokemonDTO pokemon = new PokemonDTO();
-        pokemon.setId_usuario(usuarioDTO.getId());
+        pokemon.setId_usuario(pokemonDTO.getId_usuario());
         pokemon.setNome_pokemon(nomePokemon.getText().toString());
         pokemon.setTipo_pokemon(tipoPokemon.getText().toString());
         pokemon.setHabilidade(habilidadePokemon.getText().toString());
         pokemon.setFoto_pokemon(pokemonDTO.getFoto_pokemon());
+        pokemon.setId_pokemon(pokemonDTO.getId_pokemon());
 
         Call<PokemonDTO> call1 = new RetrofitConfig().getPokedexService().atualizaPokemon(pokemon.getId_usuario(),pokemon);
-        System.out.println(pokemon.getId_usuario());
-        System.out.println(pokemon.getNome_pokemon());
-        System.out.println(pokemon.getTipo_pokemon());
-        System.out.println(pokemon.getHabilidade());
 
         call1.enqueue(new Callback<PokemonDTO>() {
             @Override
             public void onResponse(Call<PokemonDTO> call, Response<PokemonDTO> response) {
+                Intent intent = new Intent(DetalhesPokemon.this, DashboardActivity.class);
+                intent.putExtra("usuario", usuarioDTO);
+                startActivity(intent);
 
             }
 
             @Override
             public void onFailure(Call<PokemonDTO> call, Throwable t) {
+                Intent intent = new Intent(DetalhesPokemon.this, DashboardActivity.class);
+                intent.putExtra("usuario", usuarioDTO);
+                startActivity(intent);
 
             }
         });
-
-
-
-
     }
+
+
+    public void deletar (View view){
+        int idPokemon = pokemonDTO.getId_pokemon();
+
+        Call<PokemonDTO> call1 = new RetrofitConfig().getPokedexService().deletar(idPokemon);
+        call1.enqueue(new Callback<PokemonDTO>() {
+            @Override
+            public void onResponse(Call<PokemonDTO> call, Response<PokemonDTO> response) {
+                Toast.makeText(DetalhesPokemon.this, "Pokemon deletado com sucesso!!!", Toast.LENGTH_SHORT).show();
+
+                Intent it = new Intent(DetalhesPokemon.this, DashboardActivity.class);
+                it.putExtra("usuario", usuarioDTO);
+                startActivity(it);
+
+            }
+
+            @Override
+            public void onFailure(Call<PokemonDTO> call, Throwable t) {
+                Toast.makeText(DetalhesPokemon.this, "Pokemon deletado com sucesso!!!", Toast.LENGTH_SHORT).show();
+                Intent it = new Intent(DetalhesPokemon.this, DashboardActivity.class);
+                it.putExtra("usuario", usuarioDTO);
+                startActivity(it);
+
+            }
+        });
+    }
+
+
+
 
 }

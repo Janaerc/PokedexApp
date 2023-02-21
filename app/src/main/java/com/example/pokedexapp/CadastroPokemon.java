@@ -62,7 +62,7 @@ public class CadastroPokemon extends AppCompatActivity {
         tipoPokemon = findViewById(R.id.editTextTipoPokemon);
         habilidadePokemon = findViewById(R.id.editTextHabilidades);
         imageView = findViewById(R.id.fotoPokemon);
-
+        /*
         if ("update".equals(update)){
             System.out.println("aqui era pra ter o nome");
             System.out.println(pokemonDTO.getId_pokemon());
@@ -72,6 +72,9 @@ public class CadastroPokemon extends AppCompatActivity {
             imageView.setImageBitmap(ImageConverter.base64ToBitmap(pokemonDTO.getFoto_pokemon()));
         }
 
+
+        imageView.setImageBitmap(bitmap);
+        base64 = ImageConverter.bitmapToBase64(bitmap);*/
     }
 
     public void cadastrar(View view) {
@@ -96,11 +99,17 @@ public class CadastroPokemon extends AppCompatActivity {
             public void onResponse(Call<PokemonDTO> call, Response<PokemonDTO> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(CadastroPokemon.this, "Pokemon salvo com sucesso!!!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(CadastroPokemon.this, DashboardActivity.class);
+                    intent.putExtra("usuario", usuarioDTO);
+                    startActivity(intent);
                 } else {
                     if (response.code() == 409)
                         Toast.makeText(CadastroPokemon.this, "Pokemon já cadastrado", Toast.LENGTH_SHORT).show();
                     else
                         Toast.makeText(CadastroPokemon.this, "Erro ao salvar Pokemon", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(CadastroPokemon.this, DashboardActivity.class);
+                    intent.putExtra("usuario", usuarioDTO);
+                    startActivity(intent);
                 }}
 
             @Override
