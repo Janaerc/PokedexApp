@@ -66,16 +66,43 @@ public class DetalhesPokemon extends AppCompatActivity {
         pokemon.setFoto_pokemon(pokemonDTO.getFoto_pokemon());
         pokemon.setId_pokemon(pokemonDTO.getId_pokemon());
 
+
+        if (pokemon.getNome_pokemon().isEmpty()) {
+            Toast.makeText(this, "Informe o nome do pokemon", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (pokemon.getTipo_pokemon().isEmpty()) {
+            Toast.makeText(this, "Informe o tipo do pokemon", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (pokemon.getHabilidade().isEmpty()) {
+            Toast.makeText(this, "Informe a habilidade do pokemon", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else {
+
+
         Call<PokemonDTO> call1 = new RetrofitConfig().getPokedexService().atualizaPokemon(pokemon.getId_usuario(),pokemon);
 
         call1.enqueue(new Callback<PokemonDTO>() {
             @Override
             public void onResponse(Call<PokemonDTO> call, Response<PokemonDTO> response) {
+                if (response.isSuccessful()) {
+                Toast.makeText(DetalhesPokemon.this, "Pokemon salvo com sucesso!!!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(DetalhesPokemon.this, DashboardActivity.class);
                 intent.putExtra("usuario", usuarioDTO);
                 startActivity(intent);
 
-            }
+                } else {
+                    if (response.code() == 409)
+                        Toast.makeText(DetalhesPokemon.this, "Pokemon já cadastrado", Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(DetalhesPokemon.this, "Erro ao salvar Pokemon", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(DetalhesPokemon.this, DashboardActivity.class);
+                    intent.putExtra("usuario", usuarioDTO);
+                    startActivity(intent);
+                }}
 
             @Override
             public void onFailure(Call<PokemonDTO> call, Throwable t) {
@@ -84,7 +111,7 @@ public class DetalhesPokemon extends AppCompatActivity {
                 startActivity(intent);
 
             }
-        });
+        });}
     }
 
 

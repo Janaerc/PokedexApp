@@ -53,7 +53,7 @@ public class PesquisarHabilidade extends AppCompatActivity {
 
         String habilidadePoke = pesquisaHabilidade.getText().toString();
         if (habilidadePoke.isEmpty()) {
-            Toast.makeText(this, "Informe o tipo", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Informe uma habilidade", Toast.LENGTH_SHORT).show();
         } else {
             Call<List<String>> call1 = new RetrofitConfig().getPokedexService().procurarHabilidade(habilidadePoke);
 
