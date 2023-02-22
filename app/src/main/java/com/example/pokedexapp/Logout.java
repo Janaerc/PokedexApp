@@ -1,10 +1,7 @@
 package com.example.pokedexapp;
 
-//import static com.example.pokedexapp.backend.RequestTask.SHARED_PREFERENCES_NAME;
-
 import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.Intent;
 
 
 public class Logout {
@@ -17,12 +14,19 @@ public class Logout {
     }
 
     public void logout() {
-       /* SharedPreferences sharedPref = activity.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+      /* SharedPreferences sharedPref = activity.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.remove("is_logged_in");
         editor.remove("id");
-        editor.apply();
+        editor.clear();
+        editor.apply();*/
         //finaliza o app
-        activity.finishAffinity();*/
+        Intent intent = new Intent(activity, MainActivity.class);
+        activity.finishAffinity();
+
+        // Finaliza a atividade atual
+        activity.finish();
+        System.exit(0);
+
     }
 }
